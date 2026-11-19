@@ -80,8 +80,8 @@ window.TEXTS_SK = {
   "diary.empty": "Zatiaľ tu nie sú žiadne záznamy. Začni fotkou bruška z tohto týždňa.",
   "diary.week": "{week}. týždeň",
   "diary.weekLabel": "Týždeň",
-  "diary.choosePhoto": "Vybrať alebo odfotiť",
-  "diary.changePhoto": "Zmeniť fotku",
+  "diary.takePhoto": "Odfotiť",
+  "diary.pickPhoto": "Vybrať z galérie",
   "diary.preparingPhoto": "Pripravujem fotku…",
   "diary.note": "Poznámka",
   "diary.notePlaceholder": "Ako si sa cítila? Stalo sa tento týždeň niečo výnimočné?",
@@ -233,7 +233,7 @@ window.TEXTS_SK = {
     "Rozmery sú približné: každé bábätko rastie vlastným tempom. Ak sa termín zmení, oprav ho vo Viac → Nastavenia a záloha.",
   "help.diary.title": "📷 Denník",
   "help.diary.body":
-    "Každý týždeň si ulož fotku bruška a poznámku. Fotku môžeš urobiť hneď alebo ju vybrať z galérie.\n" +
+    "Každý týždeň si ulož fotku bruška a poznámku. „Odfotiť“ otvorí fotoaparát a „Vybrať z galérie“ tvoje fotky.\n" +
     "Keď máš aspoň dve fotky, „Prehrať album“ ich ukáže jednu po druhej, aby si videla, ako bruško rástlo.",
   "help.counter.title": "⏱️ Časovač",
   "help.counter.body":

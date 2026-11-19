@@ -34,7 +34,7 @@ window.Screens.ajustes = {
           <input type="text" name="name" value="${e(settings.name)}" required>
         </label>
         <label>${e(t("welcome.dueDate"))}
-          <input type="date" name="dueDate" value="${e(settings.dueDate)}" required>
+          <span class="campo-fecha"><input type="date" name="dueDate" value="${e(settings.dueDate)}" required></span>
         </label>
         <label>${e(t("welcome.partnerName"))}
           <input type="text" name="partnerName" value="${e(settings.partnerName)}">

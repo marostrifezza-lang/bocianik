@@ -28,9 +28,11 @@ window.Lang = (function () {
   // Section: choosing the language
   // ===================================================================
 
+  // Language used until she picks another one with the header button.
+  const DEFAULT_LANGUAGE = "sk";
+
   /**
-   * First language: the one saved before; otherwise the phone's language if
-   * we support it; otherwise Spanish.
+   * First language: the one saved before on this phone; otherwise Slovak.
    * localStorage is used (not IndexedDB) because it is read instantly at start-up.
    */
   function initialLanguage() {
@@ -38,8 +40,7 @@ window.Lang = (function () {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (LANGUAGES.includes(saved)) return saved;
     } catch (error) { /* storage blocked: fall through */ }
-    const phoneLanguage = (navigator.language || "es").slice(0, 2);
-    return LANGUAGES.includes(phoneLanguage) ? phoneLanguage : "es";
+    return DEFAULT_LANGUAGE;
   }
 
   let current = initialLanguage();

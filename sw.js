@@ -14,7 +14,7 @@
 // Section: configuration
 // ===================================================================
 
-const CACHE_VERSION = "bocianik-v1";
+const CACHE_VERSION = "bocianik-v2";
 
 // Every file the app needs to start offline.
 const APP_FILES = [

@@ -94,9 +94,17 @@ window.Screens.diario = {
           <input type="number" name="week" min="1" max="45" value="${editing.week}" required>
         </label>
         <div class="vista-previa">${editing.photo ? `<img src="${this.urlFor(editing.photo)}" alt="">` : ""}</div>
-        <label class="boton">📷 <span class="texto-boton-foto">${e(t(editing.photo ? "diary.changePhoto" : "diary.choosePhoto"))}</span>
-          <input type="file" name="photo" accept="image/*" hidden>
-        </label>
+        <!-- Two separate buttons: on recent Android versions a single file
+             input only opens the photo picker, without the camera option.
+             capture="environment" opens the back camera directly. -->
+        <div class="fila-botones">
+          <label class="boton">📷 ${e(t("diary.takePhoto"))}
+            <input type="file" name="camera" accept="image/*" capture="environment" hidden>
+          </label>
+          <label class="boton">🖼️ ${e(t("diary.pickPhoto"))}
+            <input type="file" name="gallery" accept="image/*" hidden>
+          </label>
+        </div>
         <label>${e(t("diary.note"))}
           <textarea name="note" rows="4" placeholder="${e(t("diary.notePlaceholder"))}">${e(editing.note)}</textarea>
         </label>
@@ -112,15 +120,16 @@ window.Screens.diario = {
     const preview = sheet.querySelector(".vista-previa");
     const close = () => sheet.remove();
 
-    // Compress the photo as soon as it is chosen and show a preview.
-    form.elements.photo.addEventListener("change", async () => {
-      const file = form.elements.photo.files[0];
+    // Compress the photo as soon as it is taken or chosen, and show a preview.
+    const usePhoto = async (input) => {
+      const file = input.files[0];
       if (!file) return;
       preview.innerHTML = `<p class="ayuda">${e(t("diary.preparingPhoto"))}</p>`;
       newPhoto = await Utils.compressImage(file);
       preview.innerHTML = `<img src="${this.urlFor(newPhoto)}" alt="">`;
-      sheet.querySelector(".texto-boton-foto").textContent = t("diary.changePhoto");
-    });
+    };
+    form.elements.camera.addEventListener("change", () => usePhoto(form.elements.camera));
+    form.elements.gallery.addEventListener("change", () => usePhoto(form.elements.gallery));
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();

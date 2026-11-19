@@ -15,13 +15,18 @@ window.Screens.bienvenida = {
   titleKey: "welcome.title",
   hideTabs: true,
 
+  /** Name of who gives the gift, in the grammatical form the language needs. */
+  giverName() {
+    return Lang.current() === "sk" ? CONFIG.giftFromSlovak : CONFIG.giftFrom;
+  },
+
   render(container) {
     const e = Utils.escapeHtml;
     container.innerHTML = `
       <section class="tarjeta bienvenida">
         <img class="logo-grande" src="iconos/icono-192.png" alt="">
         <h1>${e(CONFIG.appName)}</h1>
-        <p class="regalo-de">${e(t("welcome.giftFrom", { name: CONFIG.giftFrom }))}</p>
+        <p class="regalo-de">${e(t("welcome.giftFrom", { name: this.giverName() }))}</p>
         <p class="dedicatoria">${e(CONFIG.dedication[Lang.current()] || CONFIG.dedication.es)}</p>
       </section>
 
@@ -39,7 +44,7 @@ window.Screens.bienvenida = {
         </fieldset>
 
         <label><span id="etiqueta-fecha">${e(t("welcome.dueDate"))}</span>
-          <input type="date" name="date" required>
+          <span class="campo-fecha"><input type="date" name="date" required></span>
         </label>
         <p class="ayuda" id="calculo-fecha"></p>
 

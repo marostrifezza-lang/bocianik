@@ -74,8 +74,8 @@ window.TEXTS_EN = {
   "diary.empty": "No entries yet. Start with a bump photo for this week.",
   "diary.week": "Week {week}",
   "diary.weekLabel": "Week",
-  "diary.choosePhoto": "Choose or take a photo",
-  "diary.changePhoto": "Change photo",
+  "diary.takePhoto": "Take photo",
+  "diary.pickPhoto": "Choose from gallery",
   "diary.preparingPhoto": "Preparing the photo…",
   "diary.note": "Note",
   "diary.notePlaceholder": "How did you feel? Anything special this week?",
@@ -226,7 +226,7 @@ window.TEXTS_EN = {
     "Sizes are approximate: every baby grows at their own pace. If your due date changes, correct it in More → Settings & backup.",
   "help.diary.title": "📷 Diary",
   "help.diary.body":
-    "Save a bump photo and a note every week. You can take the photo right away or pick one from your gallery.\n" +
+    "Save a bump photo and a note every week. \"Take photo\" opens the camera and \"Choose from gallery\" opens your photos.\n" +
     "With two or more photos, \"Play album\" shows them one after another so you can see your bump grow.",
   "help.counter.title": "⏱️ Timer",
   "help.counter.body":

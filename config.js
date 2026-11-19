@@ -18,17 +18,16 @@ window.CONFIG = {
 
   // Who gives the gift (shown as "Un regalo de ...").
   giftFrom: "Mariano",
+  // Slovak declines names after "od" (from): "Darček od Mariana".
+  giftFromSlovak: "Mariana",
 
   // Creator shown in the Help screen (no e-mail: this file is public).
   creatorName: "Mariano Gonzalez",
 
   // Short dedication shown on the welcome screen, one text per language.
   dedication: {
-    es: "Para acompañarte en estos meses tan especiales. Guarda aquí tus fotos, " +
-        "tus notas y todo lo que quieras recordar. ¡Con mucho cariño!",
-    en: "To keep you company during these very special months. Keep your photos, " +
-        "your notes and everything you want to remember here. With lots of love!",
-    sk: "Aby ťa sprevádzala počas týchto výnimočných mesiacov. Ukladaj si sem fotky, " +
-        "poznámky a všetko, čo si chceš zapamätať. S veľkou láskou!",
+    es: "Para acompañarte en estos meses tan especiales.",
+    en: "To keep you company during these very special months.",
+    sk: "Aby ťa sprevádzala počas týchto výnimočných mesiacov.",
   },
 };

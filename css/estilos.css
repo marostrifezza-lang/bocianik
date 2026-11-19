@@ -236,6 +236,35 @@ input[type="text"], input[type="date"], input[type="number"], input[type="passwo
   font-weight: 400;
 }
 /* flex-shrink: 0 keeps checkboxes the same size next to long texts. */
+/* ---- Date fields: same look on every phone ----
+   Android shows a thin native arrow instead of a calendar. We remove the
+   native look, draw our own calendar icon (an SVG used as a mask, so it takes
+   the palette color) and stretch the invisible native picker button over the
+   whole field, so tapping anywhere opens the calendar. */
+.campo-fecha { position: relative; display: block; }
+.campo-fecha input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-height: 46px;          /* an empty date field would otherwise collapse */
+  padding-right: 44px;       /* room for the icon */
+  text-align: left;
+}
+.campo-fecha input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+.campo-fecha input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute; inset: 0; width: auto; height: auto;
+  opacity: 0; cursor: pointer;
+}
+.campo-fecha::after {
+  content: "";
+  position: absolute; right: 12px; top: 50%;
+  width: 22px; height: 22px; transform: translateY(-50%);
+  background-color: var(--principal);
+  pointer-events: none;      /* taps go to the field underneath */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2zM5 9h14v11H5zm2 2v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2zM5 9h14v11H5zm2 2v2h2v-2zm4 0v2h2v-2zm4 0v2h2v-2zm-8 4v2h2v-2zm4 0v2h2v-2z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
 input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; flex-shrink: 0; accent-color: var(--principal); }
 
 .ayuda { color: var(--texto-suave); font-size: 0.9rem; }

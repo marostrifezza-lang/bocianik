@@ -76,8 +76,8 @@ window.TEXTS_ES = {
   "diary.empty": "Todavía no hay entradas. Empieza con una foto de la panza de esta semana.",
   "diary.week": "Semana {week}",
   "diary.weekLabel": "Semana",
-  "diary.choosePhoto": "Elegir o sacar foto",
-  "diary.changePhoto": "Cambiar foto",
+  "diary.takePhoto": "Sacar foto",
+  "diary.pickPhoto": "Elegir de la galería",
   "diary.preparingPhoto": "Preparando la foto…",
   "diary.note": "Nota",
   "diary.notePlaceholder": "¿Cómo te sentiste? ¿Algo especial esta semana?",
@@ -228,7 +228,7 @@ window.TEXTS_ES = {
     "Las medidas son aproximadas: cada bebé crece a su ritmo. Si la fecha probable cambia, corrígela en Más → Ajustes y copia.",
   "help.diary.title": "📷 Diario",
   "help.diary.body":
-    "Guarda una foto de la panza y una nota cada semana. Puedes sacar la foto en el momento o elegir una de la galería.\n" +
+    "Guarda una foto de la panza y una nota cada semana. Con «Sacar foto» se abre la cámara y con «Elegir de la galería», tus fotos.\n" +
     "Con dos fotos o más, «Ver álbum» las pasa una tras otra para ver cómo creció la panza.",
   "help.counter.title": "⏱️ Contador",
   "help.counter.body":
