@@ -1,0 +1,423 @@
+/*
+ * estilos.css — Look of "Bocianik" (light and dark themes).
+ *
+ * What it does:  colors, typography and layout for every screen, designed for
+ *                phones (one column, big touch targets).
+ * How to use:    colors are CSS variables at the top. The dark theme and the
+ *                color palettes only change those variables, selected by
+ *                <html data-theme="light|dark" data-palette="...">
+ *                (set by app.js and by the small script in index.html).
+ * Depends on:    the class names used in index.html and js/pantalla-*.js.
+ */
+
+/* =====================================================================
+   Section: color palette (light theme = default)
+   ===================================================================== */
+:root {
+  --fondo: #fbf4ef;            /* page background, warm cream */
+  --superficie: #ffffff;       /* cards */
+  --superficie-suave: #f6e7df; /* header, tabs, inputs */
+  --texto: #3d3340;
+  --texto-suave: #7a6d78;
+  --principal: #c96f5a;        /* terracotta: main buttons, progress */
+  --principal-texto: #ffffff;
+  --secundario: #7fa58f;       /* sage green: checks, "yes" */
+  --peligro: #b84a4a;
+  --borde: #ead9cf;
+  --sombra: 0 2px 10px rgba(80, 50, 40, 0.08);
+  --radio: 18px;
+  color-scheme: light;
+}
+
+/* Dark theme: same names, darker values. */
+:root[data-theme="dark"] {
+  --fondo: #17131b;
+  --superficie: #241e2a;
+  --superficie-suave: #1f1a24;
+  --texto: #f1e9ee;
+  --texto-suave: #b5a8b2;
+  --principal: #e08a74;
+  --principal-texto: #1b1418;
+  --secundario: #8fbfa3;
+  --peligro: #e07a7a;
+  --borde: #3a3140;
+  --sombra: 0 2px 10px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+/* =====================================================================
+   Section: color palettes chosen in "Ajustes" (data-palette on <html>)
+   "terracota" uses the variables above; "rosa" is the app's default
+   (chosen in app.js and index.html). Each palette
+   changes only the colors, in a light and a dark version.
+   ===================================================================== */
+:root[data-theme="light"][data-palette="rosa"] {
+  --fondo: #fdf3f6; --superficie-suave: #f9e1e9; --borde: #f0d0dc;
+  --principal: #d4668e; --secundario: #7fa59a;
+}
+:root[data-theme="dark"][data-palette="rosa"] {
+  --fondo: #1a1217; --superficie: #281c24; --superficie-suave: #22171f; --borde: #402c39;
+  --principal: #ec8db0; --secundario: #9cc5b8;
+}
+:root[data-theme="light"][data-palette="lavanda"] {
+  --fondo: #f6f3fb; --superficie-suave: #e9e2f5; --borde: #dcd2ee;
+  --principal: #8a6bbf; --secundario: #cf7f9c;
+}
+:root[data-theme="dark"][data-palette="lavanda"] {
+  --fondo: #15131c; --superficie: #221e2c; --superficie-suave: #1c1925; --borde: #363045;
+  --principal: #b79ae6; --secundario: #e7a6bd;
+}
+:root[data-theme="light"][data-palette="salvia"] {
+  --fondo: #f3f7f3; --superficie-suave: #e1ece3; --borde: #d0e0d3;
+  --principal: #5f9473; --secundario: #c98a5a;
+}
+:root[data-theme="dark"][data-palette="salvia"] {
+  --fondo: #121714; --superficie: #1d2520; --superficie-suave: #18201b; --borde: #2e3a32;
+  --principal: #86c09b; --secundario: #e3b085;
+}
+:root[data-theme="light"][data-palette="celeste"] {
+  --fondo: #f2f7fb; --superficie-suave: #dfeaf5; --borde: #cddcec;
+  --principal: #4f86b8; --secundario: #d9906a;
+}
+:root[data-theme="dark"][data-palette="celeste"] {
+  --fondo: #11151b; --superficie: #1c232c; --superficie-suave: #171d25; --borde: #2b3542;
+  --principal: #7fb2e0; --secundario: #eab493;
+}
+
+/* =====================================================================
+   Section: base layout
+   ===================================================================== */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+}
+
+main#pantalla {
+  max-width: 560px;
+  margin: 0 auto;
+  /* Space for the fixed tab bar at the bottom (plus the phone's gesture area). */
+  padding: 12px 14px calc(96px + env(safe-area-inset-bottom));
+}
+
+h1, h2 { margin: 0.2em 0 0.4em; line-height: 1.2; }
+h2 { font-size: 1.1rem; }
+p { margin: 0.4em 0; }
+a { color: var(--principal); }
+
+[hidden] { display: none !important; }
+
+/* =====================================================================
+   Section: header
+   ===================================================================== */
+#cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+  background: var(--superficie-suave);
+  border-bottom: 1px solid var(--borde);
+}
+.titulos { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.nombre-app { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-suave); }
+.titulo-pantalla { font-size: 1.15rem; font-weight: 700; }
+
+.boton-icono {
+  min-width: 42px;
+  height: 42px;
+  border: 1px solid var(--borde);
+  border-radius: 21px;
+  background: var(--superficie);
+  color: var(--texto);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.boton-idioma { font-size: 0.85rem; font-weight: 700; padding: 0 10px; }
+
+/* =====================================================================
+   Section: bottom tab bar
+   ===================================================================== */
+#pestanas {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  display: flex;
+  background: var(--superficie-suave);
+  border-top: 1px solid var(--borde);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+#pestanas button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 0 10px;
+  border: none;
+  background: none;
+  color: var(--texto-suave);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+#pestanas button span:first-child { font-size: 1.35rem; filter: grayscale(0.6); }
+#pestanas button.activa { color: var(--principal); font-weight: 700; }
+#pestanas button.activa span:first-child { filter: none; }
+
+/* =====================================================================
+   Section: cards, buttons and forms
+   ===================================================================== */
+.tarjeta {
+  display: block;
+  width: 100%;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 16px;
+  margin: 0 0 14px;
+  color: var(--texto);
+  font: inherit;
+  text-align: left;
+}
+
+/* Clickable card with a big icon on the left (home shortcut, "Más" menu). */
+.tarjeta.accion { display: flex; gap: 14px; align-items: center; cursor: pointer; }
+.tarjeta.accion > span:last-child { display: flex; flex-direction: column; }
+.icono-grande { font-size: 2rem; }
+.icono-enorme { font-size: 3.5rem; }
+.texto-secundario { color: var(--texto-suave); font-size: 0.9rem; }
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 46px;
+  padding: 10px 18px;
+  border: 1px solid var(--borde);
+  border-radius: 23px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.boton.principal { background: var(--principal); border-color: var(--principal); color: var(--principal-texto); }
+.boton.peligro { color: var(--peligro); border-color: var(--peligro); background: transparent; }
+.boton.enlace { border: none; background: none; text-decoration: underline; min-height: 0; padding: 8px; font-weight: 400; }
+.boton:disabled { opacity: 0.45; }
+
+.fila-botones { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 14px; }
+.fila-botones > * { flex: 1; }
+
+.formulario label { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; font-weight: 600; }
+.formulario label.opcion { flex-direction: row; align-items: center; gap: 8px; font-weight: 400; }
+.formulario label.boton { flex-direction: row; font-weight: 600; }
+fieldset { border: none; padding: 0; margin: 0 0 12px; }
+legend { font-weight: 600; margin-bottom: 6px; }
+
+input[type="text"], input[type="date"], input[type="number"], input[type="password"], textarea, select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--superficie-suave);
+  color: var(--texto);
+  font: inherit;
+  font-weight: 400;
+}
+/* flex-shrink: 0 keeps checkboxes the same size next to long texts. */
+input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; flex-shrink: 0; accent-color: var(--principal); }
+
+.ayuda { color: var(--texto-suave); font-size: 0.9rem; }
+.opcional { color: var(--texto-suave); font-weight: 400; font-size: 0.85rem; }
+.nota { color: var(--texto-suave); font-size: 0.82rem; }
+.error { color: var(--peligro); font-weight: 600; }
+.vacio { text-align: center; color: var(--texto-suave); padding: 24px 8px; }
+.centrado { text-align: center; }
+
+/* Short message at the bottom ("Guardado"). */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(90px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 20px);
+  z-index: 30;
+  padding: 10px 18px;
+  border-radius: 20px;
+  background: var(--texto);
+  color: var(--fondo);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+}
+#toast.visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* Two- or three-way switch at the top of a screen (Contador, Nombres). */
+.selector { display: flex; background: var(--superficie-suave); border-radius: 23px; padding: 4px; margin-bottom: 14px; }
+.selector button {
+  flex: 1; min-height: 40px; border: none; border-radius: 20px;
+  background: none; color: var(--texto-suave); font: inherit; font-size: 0.9rem; cursor: pointer;
+}
+.selector button.activa { background: var(--superficie); color: var(--texto); font-weight: 700; box-shadow: var(--sombra); }
+
+/* =====================================================================
+   Section: welcome screen
+   ===================================================================== */
+.bienvenida { text-align: center; }
+.logo-grande { width: 104px; height: 104px; border-radius: 24px; box-shadow: var(--sombra); }
+.regalo-de { color: var(--principal); font-weight: 700; }
+.dedicatoria { font-style: italic; color: var(--texto-suave); }
+.dedicatoria.pie { text-align: center; margin-top: 24px; }
+
+/* =====================================================================
+   Section: home screen
+   ===================================================================== */
+.saludo { font-size: 1.25rem; font-weight: 700; margin: 4px 2px 12px; }
+.progreso { text-align: center; }
+.anillo { position: relative; width: 190px; height: 190px; margin: 0 auto; }
+.anillo svg { width: 100%; height: 100%; transform: rotate(-90deg); } /* start at 12 o'clock */
+.anillo circle { fill: none; stroke-width: 12; }
+.anillo-fondo { stroke: var(--superficie-suave); }
+.anillo-avance { stroke: var(--principal); stroke-linecap: round; transition: stroke-dashoffset 0.8s; }
+.anillo-texto { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.semana-numero { font-size: 3.2rem; font-weight: 800; line-height: 1; }
+.semana-etiqueta { color: var(--texto-suave); }
+.semana-dias { font-size: 0.85rem; color: var(--texto-suave); min-height: 1.2em; }
+.trimestre { color: var(--texto-suave); font-size: 0.9rem; }
+.cuenta-regresiva { font-size: 1.3rem; margin-top: 6px; }
+.cuenta-regresiva strong { color: var(--principal); }
+.fecha-parto { color: var(--texto-suave); font-size: 0.85rem; }
+
+.tamano { text-align: center; }
+.fruta { font-size: 3.5rem; display: block; }
+.medidas { color: var(--texto-suave); }
+
+/* =====================================================================
+   Section: diary and album
+   ===================================================================== */
+.grilla-diario { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.entrada {
+  display: flex; flex-direction: column; padding: 0; overflow: hidden; text-align: left;
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
+  color: var(--texto); font: inherit; cursor: pointer;
+}
+.entrada img, .sin-foto { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.sin-foto { display: flex; align-items: center; justify-content: center; font-size: 2.5rem; background: var(--superficie-suave); }
+.entrada-semana { font-weight: 700; padding: 8px 10px 0; }
+.entrada-nota {
+  padding: 0 10px 10px; font-size: 0.85rem; color: var(--texto-suave);
+  /* show at most two lines of the note */
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Bottom sheet used by the diary editor. */
+.hoja-fondo {
+  position: fixed; inset: 0; z-index: 20;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+.hoja {
+  width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto;
+  background: var(--superficie); border-radius: 22px 22px 0 0;
+  padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+}
+.vista-previa img { width: 100%; max-height: 45vh; object-fit: contain; border-radius: 12px; margin-bottom: 10px; }
+
+/* Full-screen slideshow. */
+.album { position: fixed; inset: 0; z-index: 40; background: #000; display: flex; align-items: center; justify-content: center; }
+.album-foto { max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.25s; }
+.album-foto.visible { opacity: 1; }
+.album-semana {
+  position: absolute; top: calc(16px + env(safe-area-inset-top)); left: 0; right: 0;
+  text-align: center; color: #fff; font-size: 1.4rem; font-weight: 800; text-shadow: 0 1px 6px #000;
+}
+.album-controles { position: absolute; bottom: calc(20px + env(safe-area-inset-bottom)); display: flex; gap: 14px; }
+.album-controles button { width: 54px; height: 54px; border-radius: 27px; border: none; background: rgba(255,255,255,0.18); font-size: 1.4rem; }
+
+/* =====================================================================
+   Section: contraction timer and movement counter
+   ===================================================================== */
+.boton-gigante {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  width: 230px; height: 230px; margin: 10px auto 18px;
+  border: none; border-radius: 50%;
+  background: var(--principal); color: var(--principal-texto);
+  font: inherit; font-size: 1.2rem; font-weight: 700; padding: 20px;
+  /* Soft glow in the palette's main color. */
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--principal) 35%, transparent);
+  cursor: pointer;
+}
+.boton-gigante.en-curso { background: var(--secundario); box-shadow: 0 8px 24px color-mix(in srgb, var(--secundario) 40%, transparent); }
+.boton-gigante:active { transform: scale(0.97); }
+.tiempo-vivo { font-size: 2rem; font-variant-numeric: tabular-nums; }
+.contador-grande { font-size: 4rem; line-height: 1; }
+
+.resumen .cifras { display: flex; text-align: center; }
+.resumen .cifras div { flex: 1; display: flex; flex-direction: column; }
+.resumen .cifras strong { font-size: 1.4rem; color: var(--principal); }
+.resumen .cifras span { font-size: 0.78rem; color: var(--texto-suave); }
+
+.tabla { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 0.92rem; }
+.tabla th, .tabla td { padding: 8px 6px; border-bottom: 1px solid var(--borde); text-align: left; }
+.tabla th { color: var(--texto-suave); font-weight: 600; font-size: 0.8rem; }
+
+/* =====================================================================
+   Section: checklists
+   ===================================================================== */
+.lista summary { display: flex; justify-content: space-between; align-items: center; font-weight: 700; cursor: pointer; list-style: none; }
+.lista summary::-webkit-details-marker { display: none; }
+.lista summary::after { content: "▾"; margin-left: 8px; color: var(--texto-suave); }
+.lista[open] summary::after { content: "▴"; }
+.contador-lista { margin-left: auto; color: var(--texto-suave); font-weight: 400; font-size: 0.9rem; }
+.lista ul, .lista-simple { list-style: none; padding: 0; margin: 10px 0; }
+.lista li, .lista-simple li { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--borde); }
+.lista li label { display: flex; align-items: center; gap: 10px; flex: 1; }
+.lista li.hecho span { text-decoration: line-through; color: var(--texto-suave); }
+.quitar { border: none; background: none; color: var(--texto-suave); font-size: 1rem; padding: 6px 8px; cursor: pointer; }
+.agregar-item { display: flex; gap: 8px; margin: 8px 0; }
+.agregar-item input { flex: 1; }
+.agregar-item .boton { flex: 0 0 auto; }
+
+/* =====================================================================
+   Section: names game
+   ===================================================================== */
+.carta-nombre { text-align: center; padding: 40px 16px; }
+.tipo-nombre { font-size: 2.2rem; display: block; }
+.nombre-grande { font-size: 2.3rem; font-weight: 800; }
+.votos .boton { min-height: 60px; font-size: 1.1rem; }
+.voto-si { background: var(--secundario); border-color: var(--secundario); color: #fff; }
+.lista-simple.tarjeta { padding: 4px 16px; }
+.coincidencias li { font-size: 1.15rem; justify-content: flex-start; }
+.lista-simple li:last-child { border-bottom: none; }
+
+/* =====================================================================
+   Section: help
+   ===================================================================== */
+.ayuda-tema summary { font-weight: 700; cursor: pointer; }
+.ayuda-tema p { color: var(--texto); }
+.creador { text-align: center; }
+
+/* =====================================================================
+   Section: palette picker (Ajustes)
+   ===================================================================== */
+.paletas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.paleta {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  border: none; background: none; color: var(--texto); font: inherit; font-size: 0.8rem; cursor: pointer;
+}
+.paleta-muestra {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid var(--superficie); box-shadow: 0 0 0 2px var(--borde);
+}
+.paleta.activa .paleta-muestra { box-shadow: 0 0 0 3px var(--texto); }
+.paleta.activa { font-weight: 700; }

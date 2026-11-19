@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+  index.html — Entry page of "Bocianik", a pregnancy companion app (PWA).
+
+  What it does:  defines the fixed parts of the page (header, screen area,
+                 bottom tabs, toast message) and loads the scripts in order.
+                 Each screen draws itself inside <main id="pantalla">.
+  How to use:    publish the "app" folder on GitHub Pages and open it on the
+                 phone with Chrome; then "Install app" / "Add to Home screen".
+                 For testing on the PC, serve the folder with a local web server
+                 (the service worker does not run from file://).
+  Depends on:    css/estilos.css, config.js, js/*.js, manifest.webmanifest, sw.js.
+-->
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bocianik</title>
+  <meta name="description" content="Bocianik">
+  <meta name="theme-color" content="#f9e1e9">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="iconos/icono-192.png">
+  <link rel="apple-touch-icon" href="iconos/icono-180.png">
+  <link rel="stylesheet" href="css/estilos.css">
+
+  <!-- Apply the saved light/dark theme and color palette before the page
+       paints, to avoid a flash of the wrong colors. Same logic as in app.js. -->
+  <script>
+    (function () {
+      var theme = null;
+      try { theme = localStorage.getItem("bocianik-tema"); } catch (error) {}
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", theme);
+      var palette = null;
+      try { palette = localStorage.getItem("bocianik-paleta"); } catch (error) {}
+      document.documentElement.setAttribute("data-palette", palette || "rosa");
+    })();
+  </script>
+</head>
+<body>
+  <!-- ============ Header: back arrow, title, language and theme buttons ============ -->
+  <header id="cabecera">
+    <button id="boton-volver" class="boton-icono" hidden>←</button>
+    <div class="titulos">
+      <span id="nombre-app" class="nombre-app">Bocianik</span>
+      <span id="titulo-pantalla" class="titulo-pantalla"></span>
+    </div>
+    <button id="boton-idioma" class="boton-icono boton-idioma">ES</button>
+    <button id="boton-tema" class="boton-icono">🌙</button>
+  </header>
+
+  <!-- ============ Current screen (filled by the pantalla-*.js scripts) ============ -->
+  <main id="pantalla"></main>
+
+  <!-- ============ Bottom tab bar ============ -->
+  <nav id="pestanas">
+    <button data-screen="inicio"><span aria-hidden="true">🏠</span><span data-t="tabs.home"></span></button>
+    <button data-screen="diario"><span aria-hidden="true">📷</span><span data-t="tabs.diary"></span></button>
+    <button data-screen="contador"><span aria-hidden="true">⏱️</span><span data-t="tabs.counter"></span></button>
+    <button data-screen="listas"><span aria-hidden="true">✅</span><span data-t="tabs.lists"></span></button>
+    <button data-screen="mas"><span aria-hidden="true">☰</span><span data-t="tabs.more"></span></button>
+  </nav>
+
+  <!-- Short messages such as "Guardado" -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ============ Scripts (order matters: each one uses the ones above it) ============ -->
+  <script src="config.js"></script>
+  <script src="js/textos-es.js"></script>
+  <script src="js/textos-en.js"></script>
+  <script src="js/textos-sk.js"></script>
+  <script src="js/idiomas.js"></script>
+  <script src="js/datos-semanas.js"></script>
+  <script src="js/utilidades.js"></script>
+  <script src="js/almacenamiento.js"></script>
+  <script src="js/pantalla-bienvenida.js"></script>
+  <script src="js/pantalla-inicio.js"></script>
+  <script src="js/pantalla-diario.js"></script>
+  <script src="js/pantalla-contador.js"></script>
+  <script src="js/pantalla-listas.js"></script>
+  <script src="js/pantalla-nombres.js"></script>
+  <script src="js/pantalla-ajustes.js"></script>
+  <script src="js/pantalla-mas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
